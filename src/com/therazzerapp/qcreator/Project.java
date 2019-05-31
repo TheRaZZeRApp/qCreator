@@ -17,7 +17,7 @@ public class Project {
 
     public Project(LinkedList<Question> questions) {
         if (questions.size() > 0){
-            projectNumber = questions.get(questions.size()-1).getProfectNumber();
+            projectNumber = questions.get(questions.size()-1).getProjectNumber();
             sentences = questions.get(questions.size()-1).getSentenceNumber();
             versions = questions.get(questions.size()-1).getVersionNumber();
         }

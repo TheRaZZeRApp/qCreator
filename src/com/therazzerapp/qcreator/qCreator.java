@@ -2,7 +2,6 @@ package com.therazzerapp.qcreator;
 
 import java.io.File;
 import java.net.URISyntaxException;
-import java.util.LinkedList;
 
 /**
  * <description>
@@ -20,16 +19,16 @@ public class qCreator {
             jarPath = qCreator.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath();
             jarPath = jarPath.replace("qCreator.jar","");
         } catch (URISyntaxException e) {
-            Utils.writeError("Error: Jar path not found!");
+            FileManager.writeError("Error: Jar path not found!");
             e.printStackTrace();
         }
 
         if(args.length < 1){
-            Utils.writeError("Parameter missing: No questions file specified!");
+            FileManager.writeError("Parameter missing: No questions file specified!");
             System.exit(0);
         }
         if (args.length < 2){
-            Utils.writeError("Parameter missing: No max filler amount specified!");
+            FileManager.writeError("Parameter missing: No max filler amount specified!");
             System.exit(0);
         }
 

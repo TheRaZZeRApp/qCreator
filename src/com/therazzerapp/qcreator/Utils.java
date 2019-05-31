@@ -79,7 +79,7 @@ public class Utils {
                     case 1:
                         tempMergedQuestions.add(questionLinkedList.get(randomQuestion));
                         if (qCreator.debug){
-                            debugger.append("\nQuestion: \t" + questionLinkedList.get(randomQuestion).getProfectNumber() + "\t" + questionLinkedList.get(randomQuestion).getSentenceNumber() + "\t" + questionLinkedList.get(randomQuestion).getVersionNumber());
+                            debugger.append("\nQuestion: \t" + questionLinkedList.get(randomQuestion).getProjectNumber() + "\t" + questionLinkedList.get(randomQuestion).getSentenceNumber() + "\t" + questionLinkedList.get(randomQuestion).getVersionNumber());
                         }
                         questionLinkedList.remove(randomQuestion);
                         questionAdded = true;
@@ -88,11 +88,11 @@ public class Utils {
                         try{
                             tempMergedQuestions.add(fillerPool.get(randomFiller));
                         } catch (IndexOutOfBoundsException ex){
-                            writeError("Index Out Of Bounds: Not enough filler!");
+                            FileManager.writeError("Index Out Of Bounds: Not enough filler!");
                             System.exit(0);
                         }
                         if (qCreator.debug){
-                            debugger.append("\nFiller: \t" + fillerPool.get(randomFiller).getProfectNumber() + "\t" + fillerPool.get(randomFiller).getSentenceNumber() + "\t" + fillerPool.get(randomFiller).getVersionNumber());
+                            debugger.append("\nFiller: \t" + fillerPool.get(randomFiller).getProjectNumber() + "\t" + fillerPool.get(randomFiller).getSentenceNumber() + "\t" + fillerPool.get(randomFiller).getVersionNumber());
                         }
                         fillerPool.remove(randomFiller);
                         questionAdded = false;
@@ -113,7 +113,7 @@ public class Utils {
         }
         if (qCreator.debug){
             debugger.append("\n\n=========== Total Questionares: " + mergedQuestions.size());
-            Utils.writeDebug(debugger.toString().replaceFirst("\n",""));
+            FileManager.writeDebug(debugger.toString().replaceFirst("\n",""));
         }
         return mergedQuestions;
     }
@@ -132,7 +132,7 @@ public class Utils {
 
             matcher = Pattern.compile(questionRegEx).matcher(output);
 
-            String questionTexTemplate = "";
+            String questionTexTemplate;
 
             matcher.find();
             questionTexTemplate = matcher.group("qT");
@@ -158,11 +158,4 @@ public class Utils {
 
     }
 
-    public static void writeError(String error){
-        FileManager.exportTexFile(error, qCreator.jarPath+"error.log");
-    }
-
-    public static void writeDebug(String debug){
-        FileManager.exportTexFile(debug, qCreator.jarPath+"debug.txt");
-    }
 }

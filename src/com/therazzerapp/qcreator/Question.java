@@ -33,7 +33,7 @@ public class Question {
         return replyLine;
     }
 
-    public int getProfectNumber() {
+    public int getProjectNumber() {
         return profectNumber;
     }
 

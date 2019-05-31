@@ -108,4 +108,12 @@ public class FileManager {
             }
         }
     }
+
+    public static void writeError(String error){
+        exportTexFile(error, qCreator.jarPath+"error.log");
+    }
+
+    public static void writeDebug(String debug){
+        exportTexFile(debug, qCreator.jarPath+"debug.txt");
+    }
 }
