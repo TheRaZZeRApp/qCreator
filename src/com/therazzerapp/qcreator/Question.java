@@ -22,7 +22,7 @@ public class Question {
     }
 
     public String getRawQuestion(){
-        return "" + profectNumber + " " + sentenceNumber + " " + versionNumber + " " + setupLine + "!!! " + replyLine;
+        return "" + profectNumber + "\t" + sentenceNumber + "\t" + versionNumber + "\t" + setupLine + "!!! " + replyLine;
     }
 
     public String getSetupLine() {

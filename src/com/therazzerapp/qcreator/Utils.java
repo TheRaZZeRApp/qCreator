@@ -31,8 +31,34 @@ public class Utils {
      * @return          null if filler doesn't contain fillers
      */
     public static LinkedList<LinkedList<Question>>  getConnectedQuestionList(Project questions, Project filler, int maxFillerAmount){
+        StringBuilder debugger = new StringBuilder();
+        if (qCreator.debug){
+            for (LinkedList<Question> questionLinkedList : questions.getCommutedQuestions()) {
+                debugger.append("\n=========== New Commuted List\n");
+                for (Question question : questionLinkedList) {
+                    String temp = question.getRawQuestion() + "\n";
+                    temp = temp.replaceAll("!!! ","");
+                    debugger.append(temp);
+                }
+                debugger.append("=========== Total Questions: " + questionLinkedList.size() + "\n");
+            }
+            debugger.append("\n=========== Total Sentences: \t" + questions.getSentences());
+            debugger.append("\n=========== Total Versions: \t" + questions.getVersions());
+            debugger.append("\n=========== Total Questions: \t" + questions.getQuestions().size() + "\n");
+            debugger.append("\n=========== Filler\n");
+            for (Question question : filler.getQuestions()) {
+                String temp = question.getRawQuestion() + "\n";
+                temp = temp.replaceAll("!!! ","");
+                debugger.append(temp);
+            }
+            debugger.append("=========== Total Filler: " + filler.getQuestions().size() + "\n");
+        }
         LinkedList<LinkedList<Question>>  mergedQuestions = new LinkedList<>();
         for (LinkedList<Question> questionLinkedList : questions.getCommutedQuestions()) {
+            int fillerAmount = 0;
+            if (qCreator.debug){
+                debugger.append("\n\n=========== New Questionare");
+            }
             LinkedList<Question> tempMergedQuestions = new LinkedList<>();
             LinkedList<Question> fillerPool = new LinkedList<>();
             fillerPool.addAll(filler.getQuestions());
@@ -52,6 +78,9 @@ public class Utils {
                 switch (randomCase){
                     case 1:
                         tempMergedQuestions.add(questionLinkedList.get(randomQuestion));
+                        if (qCreator.debug){
+                            debugger.append("\nQuestion: \t" + questionLinkedList.get(randomQuestion).getProfectNumber() + "\t" + questionLinkedList.get(randomQuestion).getSentenceNumber() + "\t" + questionLinkedList.get(randomQuestion).getVersionNumber());
+                        }
                         questionLinkedList.remove(randomQuestion);
                         questionAdded = true;
                         break;
@@ -62,15 +91,29 @@ public class Utils {
                             writeError("Index Out Of Bounds: Not enough filler!");
                             System.exit(0);
                         }
+                        if (qCreator.debug){
+                            debugger.append("\nFiller: \t" + fillerPool.get(randomFiller).getProfectNumber() + "\t" + fillerPool.get(randomFiller).getSentenceNumber() + "\t" + fillerPool.get(randomFiller).getVersionNumber());
+                        }
                         fillerPool.remove(randomFiller);
                         questionAdded = false;
                         fillerCounter++;
+                        fillerAmount++;
                         break;
                     default:
                         break;
                 }
             }
             mergedQuestions.add(tempMergedQuestions);
+
+            if (qCreator.debug){
+                debugger.append("\n=========== Total Questions: \t" + tempMergedQuestions.size());
+                debugger.append("\n=========== Filler: \t\t\t" + fillerAmount);
+            }
+
+        }
+        if (qCreator.debug){
+            debugger.append("\n\n=========== Total Questionares: " + mergedQuestions.size());
+            Utils.writeDebug(debugger.toString().replaceFirst("\n",""));
         }
         return mergedQuestions;
     }
@@ -117,5 +160,9 @@ public class Utils {
 
     public static void writeError(String error){
         FileManager.exportTexFile(error, qCreator.jarPath+"error.log");
+    }
+
+    public static void writeDebug(String debug){
+        FileManager.exportTexFile(debug, qCreator.jarPath+"debug.txt");
     }
 }

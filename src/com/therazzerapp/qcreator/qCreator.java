@@ -12,6 +12,7 @@ import java.util.LinkedList;
  */
 public class qCreator {
     public static String jarPath = "";
+    public static boolean debug = false;
     public static void main(String[] args) {
 
         String jarPath = "C:\\";
@@ -30,6 +31,12 @@ public class qCreator {
         if (args.length < 2){
             Utils.writeError("Parameter missing: No max filler amount specified!");
             System.exit(0);
+        }
+
+        if (args.length == 3){
+            if (args[2].equals("1")){
+                debug = true;
+            }
         }
 
         File texTemplate = new File(jarPath +"texTemplate.tex");
