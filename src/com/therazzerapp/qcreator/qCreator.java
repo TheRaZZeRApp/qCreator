@@ -11,6 +11,7 @@ import java.util.LinkedList;
  * @since 1.0
  */
 public class qCreator {
+    public static String jarPath = "";
     public static void main(String[] args) {
 
         String jarPath = "C:\\";
@@ -18,15 +19,16 @@ public class qCreator {
             jarPath = qCreator.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath();
             jarPath = jarPath.replace("qCreator.jar","");
         } catch (URISyntaxException e) {
+            Utils.writeError("Error: Jar path not found!");
             e.printStackTrace();
         }
 
         if(args.length < 1){
-            FileManager.exportTexFile("Parameter missing: No questions file specified!", jarPath+"error.log");
+            Utils.writeError("Parameter missing: No questions file specified!");
             System.exit(0);
         }
         if (args.length < 2){
-            FileManager.exportTexFile("Parameter missing: No max filler amount specified!", jarPath+"error.log");
+            Utils.writeError("Parameter missing: No max filler amount specified!");
             System.exit(0);
         }
 

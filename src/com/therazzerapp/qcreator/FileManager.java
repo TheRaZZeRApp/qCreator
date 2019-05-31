@@ -43,13 +43,13 @@ public class FileManager {
                                     matcher.group("sQ"),
                                     matcher.group("qQ"));
                             questions.add(question);
-                        } catch (NumberFormatException nfe){
+                        } catch (NumberFormatException ignored){
                         }
                     }
                     text = bufferedReader.readLine();
                 }
             }
-        } catch (IOException ioe){
+        } catch (IOException ignored){
         }finally {
             try {
                 if (inputStream != null) {
@@ -77,13 +77,13 @@ public class FileManager {
                 stringBuilder.append(text + "\n");
                 text = bufferedReader.readLine();
             }
-        } catch (IOException ioe){
+        } catch (IOException ignored){
         }finally {
             try {
                 if (inputStream != null) {
                     inputStream.close();
                 }
-            } catch (IOException ioe) {
+            } catch (IOException ignored) {
             }
         }
         return stringBuilder.toString();
@@ -100,11 +100,11 @@ public class FileManager {
         try {
             file.createNewFile();
             writer.write(texCode);
-        } catch (IOException e) {
+        } catch (IOException ignored) {
         } finally {
             try {
                 writer.close();
-            } catch (IOException e) {
+            } catch (IOException ignored) {
             }
         }
     }

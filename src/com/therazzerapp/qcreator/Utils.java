@@ -56,7 +56,12 @@ public class Utils {
                         questionAdded = true;
                         break;
                     case 2:
-                        tempMergedQuestions.add(fillerPool.get(randomFiller));
+                        try{
+                            tempMergedQuestions.add(fillerPool.get(randomFiller));
+                        } catch (IndexOutOfBoundsException ex){
+                            writeError("Index Out Of Bounds: Not enough filler!");
+                            System.exit(0);
+                        }
                         fillerPool.remove(randomFiller);
                         questionAdded = false;
                         fillerCounter++;
@@ -108,5 +113,9 @@ public class Utils {
             index++;
         }
 
+    }
+
+    public static void writeError(String error){
+        FileManager.exportTexFile(error, qCreator.jarPath+"error.log");
     }
 }
